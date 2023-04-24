@@ -2,13 +2,11 @@ package com.jtspringproject.JtSpringProject;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,6 +20,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 public class ProductGUI {
     static String BASE_URL = "http://localhost:8080/";
@@ -49,6 +48,7 @@ public class ProductGUI {
 
     // Test show product route from admin control panel
     @Test
+    @Order(1)
     public void testShowProductRoute() {
         open(BASE_URL + "adminhome");
         $(By.xpath("/html/body/div[2]/div/div[2]/div/div/a")).click();
@@ -57,6 +57,7 @@ public class ProductGUI {
 
     // Test show product table attributes and action names
     @Test
+    @Order(2)
     public void testShowProductTableStructure() {
         open(BASE_URL + "admin/products");
         $$("tbody:nth-child(1) tr").shouldHave(texts("Serial No. Product Name Category Preview Quantity Price Weight Descrption Delete Update"));
@@ -64,6 +65,7 @@ public class ProductGUI {
 
     // Test show product table element size match with database
     @Test
+    @Order(3)
     public void testShowCategoryTableSize() throws Exception {
         open(BASE_URL + "admin/products");
         $$("tbody:nth-child(2) tr").filter(visible).shouldHave(size(countProduct()));
@@ -71,6 +73,7 @@ public class ProductGUI {
 
     // Test 'add product' button press, route to adding page, with read-only product id
     @Test
+    @Order(4)
     public void testAddProductButtonRoute() throws Exception {
         open(BASE_URL + "admin/products");
         $(By.xpath("/html/body/div/a")).click();
@@ -91,6 +94,7 @@ public class ProductGUI {
 
     // Test add product form field attribute 'required'
     @Test
+    @Order(5)
     public void testAddProductEntryAttribute() {
         open(BASE_URL + "admin/products");
         $(By.xpath("/html/body/div/a")).click();
@@ -105,6 +109,7 @@ public class ProductGUI {
 
     // Test table row number and data after adding a product
     @Test
+    @Order(6)
     public void testAddProductRowAndData() throws Exception {
         int count = countProduct();
         open(BASE_URL + "admin/products");
@@ -149,6 +154,7 @@ public class ProductGUI {
 
     // Test table row number after deleting (assume delete last one)
     @Test
+    @Order(7)
     public void testRemoveCategoryRow() throws Exception {
         int count = countProduct();
         open(BASE_URL + "admin/products");
@@ -159,6 +165,7 @@ public class ProductGUI {
 
     // Test update button and corresponding route with product id (last one)
     @Test
+    @Order(8)
     public void testUpdateProductRoute() throws Exception {
         int count = countProduct();
         open(BASE_URL + "admin/products");
@@ -178,6 +185,7 @@ public class ProductGUI {
 
     // Test update product form attributes
     @Test
+    @Order(9)
     public void testUpdateProductFormAttribute() throws Exception {
         int count = countProduct();
         open(BASE_URL + "admin/products");
@@ -193,9 +201,10 @@ public class ProductGUI {
         $(By.name("description")).shouldNotBe(readonly);
     }
 
-    // Test update category - check if original data is showed on form (last element)
+    // Test update product - check if original data is showed on form (last element)
     // BUG: original description is not show in page
     @Test
+    @Order(10)
     public void testUpdateProductOriginalData() throws Exception {
         int count = countProduct();
         open(BASE_URL + "admin/products");
@@ -231,6 +240,7 @@ public class ProductGUI {
 
     // Test update product - check updated value
     @Test
+    @Order(11)
     public void testUpdateProductValue() throws Exception {
         int count = countProduct();
         open(BASE_URL + "admin/products");

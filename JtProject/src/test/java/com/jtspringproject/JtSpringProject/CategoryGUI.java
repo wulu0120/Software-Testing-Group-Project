@@ -4,8 +4,7 @@ import static com.codeborne.selenide.Condition.*;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,6 +13,7 @@ import java.sql.*;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 public class CategoryGUI {
     static String BASE_URL = "http://localhost:8080/";
@@ -41,6 +41,7 @@ public class CategoryGUI {
 
     // Test show category route from admin control panel
     @Test
+    @Order(1)
     public void testShowCategoryRoute() {
         open(BASE_URL + "adminhome");
         $(By.xpath("/html/body/div[2]/div/div[1]/div/div/a")).click();
@@ -49,6 +50,7 @@ public class CategoryGUI {
 
     // Test show category table attributes and action names
     @Test
+    @Order(2)
     public void testShowCategoryTableStructure() {
         open(BASE_URL + "admin/categories");
         $$("thead tr th").shouldHave(texts("SN", "Category Name", "Delete", "Update"));
@@ -56,6 +58,7 @@ public class CategoryGUI {
 
     // Test show category table element size match with database
     @Test
+    @Order(3)
     public void testShowCategoryTableSize() throws Exception {
         open(BASE_URL + "admin/categories");
         $$("tbody tr").filter(visible).shouldHave(size(countCategory()));
@@ -63,6 +66,7 @@ public class CategoryGUI {
 
     // Test 'add category' button press, show a new form; click close btn, form invisible
     @Test
+    @Order(4)
     public void testAddCategoryButtonPrompt() {
         open(BASE_URL + "admin/categories");
         $(By.xpath("/html/body/div/button")).click();
@@ -74,6 +78,7 @@ public class CategoryGUI {
 
     // Test add form mandatory field attribute 'required'
     @Test
+    @Order(5)
     public void testAddCategoryEntryAttribute() {
         open(BASE_URL + "admin/categories");
         $(By.xpath("/html/body/div/button")).click();
@@ -84,6 +89,7 @@ public class CategoryGUI {
 
     // Test table row number and data after adding
     @Test
+    @Order(6)
     public void testAddCategoryRowAndData() throws Exception {
         int count = countCategory();
         open(BASE_URL + "admin/categories");
@@ -96,6 +102,7 @@ public class CategoryGUI {
 
     // Test table row number after deleting
     @Test
+    @Order(7)
     public void testRemoveCategoryRow() throws Exception {
         int count = countCategory();
         open(BASE_URL + "admin/categories");
@@ -105,6 +112,7 @@ public class CategoryGUI {
 
     // Test update btn form prompted (show and close form)
     @Test
+    @Order(8)
     public void testUpdateBtnShowAndCloseForm() {
         open(BASE_URL + "admin/categories");
         $(By.xpath("/html/body/div/table/tbody/tr[2]/td[4]/form/button")).click();
@@ -116,6 +124,7 @@ public class CategoryGUI {
 
     // Test update category - check if original data is showed on form (1st element)
     @Test
+    @Order(9)
     public void testUpdateCategoryOriginalData() {
         int elemId = 1;
         open(BASE_URL + "admin/categories");
@@ -129,6 +138,7 @@ public class CategoryGUI {
 
     // Test update category - check updated value
     @Test
+    @Order(10)
     public void testUpdateCategoryNewValue() {
         int elemId = 1;
         String newCategory = "category8";
