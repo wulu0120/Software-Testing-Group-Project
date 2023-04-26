@@ -648,7 +648,7 @@ public class AdminControllerTest {
 
     // Blackbox / Whitebox - profileDisplay(): check model username attribute
     @Test
-    void testProfileDisplayDataUsername() throws Exception {
+    void testProfileDisplayDataUsername() {
         String expectedUsername = "username";
         String expectedPassword = "password";
         String expectedEmail = "email";
@@ -661,7 +661,7 @@ public class AdminControllerTest {
 
     // Blackbox / Whitebox - profileDisplay(): check model password attribute
     @Test
-    void testProfileDisplayDataPassword() throws Exception {
+    void testProfileDisplayDataPassword() {
         String expectedUsername = "username";
         String expectedPassword = "password";
         String expectedEmail = "email";
@@ -674,7 +674,7 @@ public class AdminControllerTest {
 
     // Blackbox / Whitebox - profileDisplay(): check model email attribute
     @Test
-    void testProfileDisplayDataEmail() throws Exception {
+    void testProfileDisplayDataEmail() {
         String expectedUsername = "username";
         String expectedPassword = "password";
         String expectedEmail = "email";
@@ -735,7 +735,7 @@ public class AdminControllerTest {
 
     // Blackbox - updateUserProfile(): check update profile with uid = 0
     @Test
-    void testUpdateUserProfileValidUidZero() throws Exception {
+    void testUpdateUserProfileValidUidZero() {
         int uid = 0; //invalid uid
         String expectedUsername = "username";
         String expectedEmail = "email";
@@ -749,7 +749,7 @@ public class AdminControllerTest {
 
     // Blackbox - updateUserProfile(): check update profile with uid = 1
     @Test
-    void testUpdateUserProfileValidUidOne() throws Exception {
+    void testUpdateUserProfileValidUidOne() {
         int uid = 1; //invalid uid
         String expectedUsername = "username";
         String expectedEmail = "email";
@@ -763,7 +763,7 @@ public class AdminControllerTest {
 
     // Blackbox - updateUserProfile(): check update profile with uid = -1
     @Test
-    void testUpdateUserProfileInvalidUidNegative() throws Exception {
+    void testUpdateUserProfileInvalidUidNegative() {
         int uid = -1; //invalid uid
         String expectedUsername = "username";
         String expectedEmail = "email";
@@ -777,7 +777,7 @@ public class AdminControllerTest {
 
     // Blackbox - updateUserProfile(): check update profile with uid = Integer.MAX_VALUE
     @Test
-    void testUpdateUserProfileInvalidUidInfinity() throws Exception {
+    void testUpdateUserProfileInvalidUidInfinity() {
         int uid = Integer.MAX_VALUE; //invalid uid
         String expectedUsername = "username";
         String expectedEmail = "email";
@@ -791,7 +791,7 @@ public class AdminControllerTest {
 
     // Whitebox - updateUserProfile(): check update profile throws no exception
     @Test
-    void testUpdateUserProfileNoException() throws Exception {
+    void testUpdateUserProfileNoException() {
         int uid = 1;
         assertDoesNotThrow(
                 ()->{

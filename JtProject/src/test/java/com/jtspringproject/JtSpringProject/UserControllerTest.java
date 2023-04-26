@@ -140,9 +140,9 @@ public class UserControllerTest {
                 });
     }
 
-    //Whitebox - newUseRegister(): check that duplicate created user throws error
+    //Blackbox - newUseRegister(): check that duplicate created user throws error
     @Test
-    void testNewUseRegisterDuplicateUserCreation() throws Exception {
+    void testNewUseRegisterDuplicateUserCreation() {
         String expectedUsername = "username";
         String expectedPassword = "password";
         String expectedEmail = "email";
