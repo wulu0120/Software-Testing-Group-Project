@@ -13,7 +13,7 @@ public class LoginGUI {
   @Test
   public void userLogout() {
     open(BASE_URL);
-    $(By.id("username")).sendKeys("user");
+    $(By.id("username")).sendKeys("jay");
     $(By.id("password")).sendKeys("123");
     $(By.xpath("/html/body/div/div/form/input")).click();
 
@@ -35,18 +35,18 @@ public class LoginGUI {
   @Test
   public void userLoginSuccess() {
     open(BASE_URL);
-    $(By.id("username")).sendKeys("user");
+    $(By.id("username")).sendKeys("jay");
     $(By.id("password")).sendKeys("123");
     $(By.xpath("/html/body/div/div/form/input")).click();
 
-    assertEquals("Welcome user", $(By.xpath("/html/body/section/div/nav/div/div/h4")).getText());
+    assertEquals("Welcome jay", $(By.xpath("/html/body/section/div/nav/div/div/h4")).getText());
     assert($(By.xpath("/html/body/section/div/nav/div/div/h4")).isDisplayed());
   }
 
   @Test
   public void userLoginFailIncorrectPassword() {
     open(BASE_URL);
-    $(By.id("username")).sendKeys("user");
+    $(By.id("username")).sendKeys("jay");
     $(By.id("password")).sendKeys("1234");
     $(By.xpath("/html/body/div/div/form/input")).click();
 
@@ -87,7 +87,7 @@ public class LoginGUI {
   @Test
   public void productDisplayedOnHomePage() {
     open(BASE_URL);
-    $(By.id("username")).sendKeys("user");
+    $(By.id("username")).sendKeys("jay");
     $(By.id("password")).sendKeys("123");
     $(By.xpath("/html/body/div/div/form/input")).click();
 
@@ -98,7 +98,7 @@ public class LoginGUI {
   @Test
   public void productChangesWhenArrayKeyPressed() throws InterruptedException {
     open(BASE_URL);
-    $(By.id("username")).sendKeys("user");
+    $(By.id("username")).sendKeys("jay");
     $(By.id("password")).sendKeys("123");
     $(By.xpath("/html/body/div/div/form/input")).click();
 
@@ -114,7 +114,7 @@ public class LoginGUI {
   @Test
   public void productCarouselChangesAfterSomeTime() throws InterruptedException {
     open(BASE_URL);
-    $(By.id("username")).sendKeys("user");
+    $(By.id("username")).sendKeys("jay");
     $(By.id("password")).sendKeys("123");
     $(By.xpath("/html/body/div/div/form/input")).click();
 
