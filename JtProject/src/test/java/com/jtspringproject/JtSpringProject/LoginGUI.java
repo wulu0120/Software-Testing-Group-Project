@@ -124,6 +124,4 @@ public class LoginGUI {
     assertFalse($(By.xpath("/html/body/section/div/div/div/div/div/div/div/div/div/div/div[2]/div[2]/h2")).isDisplayed());
     assert($(By.xpath("/html/body/section/div/div/div/div/div/div/div/div[2]/div/div/div[2]/div[2]/h2")).isDisplayed());
   }
-
-
 }

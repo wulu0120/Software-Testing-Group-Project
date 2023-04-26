@@ -407,7 +407,7 @@ public class AdminControllerTest {
     // Whitebox - addproducttodb: check database update
     @Test
     @Order(33)
-    void testAddProductToDbData() throws Exception {
+    void testAddProductToDbData1() throws Exception {
         String name = "steam game 111";
         String catid = "test1";
         int price = 30;
@@ -447,6 +447,152 @@ public class AdminControllerTest {
         assertEquals(price, price1);
         assertEquals(weight, weight1);
         assertEquals(descripton, descripton1);
+    }
+
+    // Whitebox - addproducttodb: check database update
+    @Test
+    @Order(34)
+    void testAddProductToDbData2() throws Exception {
+        String name = "test here";
+        String catid = "test1";
+        int price = 30;
+        int weight = 36;
+        int quantity = 1123;
+        String descripton = "This is a test";
+        String image = "1.jpg";
+
+        adminController.addproducttodb(name, catid, price, weight, quantity, descripton, image);
+
+        Statement stmt = createStmt();
+        ResultSet rst = stmt.executeQuery("select * from products where name = '"+name+"';");
+
+        String name1 = "", catname = "";
+        int catid1 = 0, price1 = 0, weight1 = 0, quantity1 = 0;
+        String descripton1 = "", image1 = "";
+
+        if (rst.next()) {
+            name1 = rst.getString("name");
+            catid1 = rst.getInt("categoryid");
+            image1 = rst.getString("image");
+            quantity1 = rst.getInt("quantity");
+            price1 = rst.getInt("price");
+            weight1 = rst.getInt("weight");
+            descripton1 = rst.getString("description");
+        }
+
+        Statement stmt1 = createStmt();
+        ResultSet rst1 = stmt1.executeQuery("select * from categories where categoryid = '"+catid1+"';");
+        if (rst1.next()) {
+            catname = rst1.getString("name");
+        }
+        assertEquals(name, name1);
+        assertEquals(catid, catname);
+        assertEquals(image, image1);
+        assertEquals(quantity, quantity1);
+        assertEquals(price, price1);
+        assertEquals(weight, weight1);
+        assertEquals(descripton, descripton1);
+    }
+
+    // Whitebox - addproducttodb: maximum price
+    @Test
+    @Order(35)
+    void testAddProductToDbDataMaxPrice() throws Exception {
+        String name = "steam game 111";
+        String catid = "test1";
+        int price = Integer.MAX_VALUE;
+        int weight = 30;
+        int quantity = 1111;
+        String descripton = "This is a popular steam game";
+        String image = "1.jpg";
+
+        adminController.addproducttodb(name, catid, price, weight, quantity, descripton, image);
+
+        Statement stmt = createStmt();
+        ResultSet rst = stmt.executeQuery("select * from products where name = '"+name+"';");
+
+        String name1 = "", catname = "";
+        int catid1 = 0, price1 = 0, weight1 = 0, quantity1 = 0;
+        String descripton1 = "", image1 = "";
+
+        if (rst.next()) {
+            name1 = rst.getString("name");
+            catid1 = rst.getInt("categoryid");
+            image1 = rst.getString("image");
+            quantity1 = rst.getInt("quantity");
+            price1 = rst.getInt("price");
+            weight1 = rst.getInt("weight");
+            descripton1 = rst.getString("description");
+        }
+
+        Statement stmt1 = createStmt();
+        ResultSet rst1 = stmt1.executeQuery("select * from categories where categoryid = '"+catid1+"';");
+        if (rst1.next()) {
+            catname = rst1.getString("name");
+        }
+        assertEquals(name, name1);
+        assertEquals(catid, catname);
+        assertEquals(image, image1);
+        assertEquals(quantity, quantity1);
+        assertEquals(price, price1);
+        assertEquals(weight, weight1);
+        assertEquals(descripton, descripton1);
+    }
+
+    // Blackbox - add product to db - max integer + 1 for price
+    @Test
+    @Order(36)
+    void testAddProductToDbDataLargeMaxPrice() throws Exception {
+        String name = "steam game 111";
+        String catid = "test1";
+        int price = Integer.MAX_VALUE + 1;
+        int weight = 30;
+        int quantity = 1111;
+        String descripton = "This is a popular steam game";
+        String image = "1.jpg";
+        assertThrows(ArithmeticException.class, () -> {adminController.addproducttodb(name, catid, price, weight, quantity, descripton, image);});
+    }
+
+    // Blackbox - add product to db - min neg integer - 1 for price
+    @Test
+    @Order(37)
+    void testAddProductToDbDataLessMinPrice() throws Exception {
+        String name = "steam game 111";
+        String catid = "test1";
+        int price = Integer.MIN_VALUE - 1;
+        int weight = 30;
+        int quantity = 1111;
+        String descripton = "This is a popular steam game";
+        String image = "1.jpg";
+        assertThrows(ArithmeticException.class, () -> {adminController.addproducttodb(name, catid, price, weight, quantity, descripton, image);});
+    }
+
+    // Blackbox - add product to db - min neg integer - 1 for quantity
+    @Test
+    @Order(38)
+    void testAddProductToDbDataLessMinQuantity() throws Exception {
+        String name = "steam game 111";
+        String catid = "test1";
+        int price = 123;
+        int weight = 30;
+        int quantity = Integer.MIN_VALUE - 1;
+        String descripton = "This is a popular steam game";
+        String image = "1.jpg";
+        assertThrows(ArithmeticException.class, () -> {adminController.addproducttodb(name, catid, price, weight, quantity, descripton, image);});
+    }
+
+    // Blackbox - add product to db - max pos int for quantity
+    @Test
+    @Order(38)
+    void testAddProductToDbDataLargeMaxQuantity() throws Exception {
+        String name = "steam game 111";
+        String catid = "test1";
+        int price = 123;
+        int weight = 30;
+        int quantity = Integer.MAX_VALUE + 1;
+        String descripton = "This is a popular steam game";
+        String image = "1.jpg";
+        assertThrows(ArithmeticException.class, () -> {adminController.addproducttodb(name, catid, price, weight, quantity, descripton, image);});
     }
 
     // Blackbox - returnIndex(): check return url value
